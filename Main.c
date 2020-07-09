@@ -4,9 +4,10 @@
 #include <math.h>
 
 void gerarChaves(short *Pn, short *Lp, int *e, int *d, int *num);
-void decodificar(double d, double num);
+void decodificar(int d, int num);
 
-int main(void) {
+int main(void) 
+{
   	short PrimeList[40] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173};
 	//  e d public phi
 	srand(time(NULL));
@@ -24,7 +25,7 @@ int main(void) {
 
 	while(1)
 	{
-		decodificar((double)D, (double)Num);
+		decodificar(D, Num);
 	}
   	return 0;
 }
@@ -50,12 +51,23 @@ void gerarChaves(short *Pn, short *Lp, int *e, int *d, int *num)
 	}
 	*(d) = (int)D;
 }
-void decodificar(double d, double num)
+
+long int cdn( long int c, long int d, long int n )      // work out c^d mod n
 {
-	double Entrada = 0;
-	scanf("%lf", &Entrada);
-	double Saida;
-	double x = pow(abs(Entrada), d);
-	Saida = fmod(abs(x), num);
-	printf("O valor decodificado eh %lf\n", Saida);
+   unsigned long long int value = 1;
+   while( d > 0 )
+   {
+      value *= c;
+      value %= n;
+      d--;
+   }
+   return value;
+}
+
+void decodificar(int d, int num)
+{
+	long int Entrada = 0;
+	scanf("%lu", &Entrada);
+	long int Saida = cdn(Entrada, d, num);
+	printf("O valor decodificado eh %lu\n", Saida);
 }
